@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Synthese</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/Controlleur.js" type="module"></script>
+    <script src="libs/jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="sceneDisplay">
+        <div id="buttonSceneLeft"><img></div>
+        <div id="scenename"><input type="text" id="scenenameinput"></div>
+        <div id="buttonSceneRight"><img></div>
+    </div>
+    <div id="save"><p>Save</p></div>
+    <div id="delete"><p>X</p></div>
+    <!-- ---------------------------------------- -->
+    <div id="meshname"><p>-</p></div>
+    <div id="meshposition">
+        <div id=textPosition><p>position:</p></div>
+        <div id=positionX><p id=textPositionX></p></div>
+        <div id=positionY><p id=textPositionY></p></div>
+        <div id=positionZ><p id=textPositionZ></p></div>
+    </div>
+
+    <div id="meshrotation">
+        <div id=textRotation><p>rotation:</p></div>
+        <div id=rotationX><p id=textRotationX></p></div>
+        <div id=rotationY><p id=textRotationY></p></div>
+        <div id=rotationZ><p id=textRotationZ></p></div>
+    </div>
+
+    <div id="meshscale">
+        <div id=textScale><p>scale:</p></div>
+        <div id=scaleX><p id=textScaleX></p></div>
+        <div id=scaleY><p id=textScaleY></p></div>
+        <div id=scaleZ><p id=textScaleZ></p></div>
+    </div>
+
+    <div id="deselect"><p>[deselect]</p></div>
+
+
+    <div id="saveSuccess"></div>
+    <div id="barre"></div>
+    <div id="destroy"><p>Destroy !</p></div>
+
+
+    <canvas id="canvas"></canvas>
+
+</body>
+</html>

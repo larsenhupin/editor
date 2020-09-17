@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
+* { margin:0; padding:0; } /* to remove the top and left whitespace */
+
+html, #home body { width:100%; height:100%;} /* just to be sure these are full screen*/
+
+/* unvisited link */
+a:link {
+    color: black;
+  }
+
+  /* visited link */
+  a:visited {
+    color: black;
+  }
+
+
+#sceneDisplay{
+    position:absolute;
+    display: flex;
+    background-color: #008769;
+}
+
+#scenename{
+    margin: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', sans-serif;
+    color:white;
+}
+
+#scenenameinput{
+    background-color: transparent;
+    border: 0px solid;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', sans-serif;
+    color:white;
+    text-align: center;
+    width: 175px;
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+    color: white;
+ }
+
+ :-moz-placeholder { /* Firefox 18- */
+    text-align: center;
+    color: white;
+ }
+
+ ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center;
+    color: white;
+ }
+
+ :-ms-input-placeholder {
+    text-align: center;
+    color: white;
+ }
+
+#buttonSceneLeft{
+    background-image: url("../assets/img/left_arrow.png");
+    margin-right: 6px;
+    width:30px;
+    height:30px;
+    background-size: 30px 30px;
+}
+
+#buttonSceneRight{
+    background-image: url("../assets/img/right_arrow.png");
+    margin-left: 6px;
+    width:30px;
+    height:30px;
+    background-size: 30px 30px;
+}
+
+#save{
+    position:absolute;
+    background-color: #008769;
+    width:100px;
+    height:38px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', sans-serif;
+    color:white;
+    top:34px;
+}
+
+#save p{
+    position: absolute;
+    top: 23%;
+    left: 25%;
+}
+
+#delete{
+    position: absolute;
+    background-color: red;
+    width:38px;
+    height:38px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', sans-serif;
+    color:black;
+
+    top:34px;
+    left:105px;
+
+}
+
+
+#delete p{
+    position: absolute;
+    top: 23%;
+    left: 35%;
+}
+
+#meshname{
+    position: absolute;
+    background-color: #471916;
+    width:300px;
+    height:25px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color:white;
+    left:84%;
+}
+
+#meshposition{
+    position: absolute;
+    display: flex;
+    background-color: #471916;
+    width:300px;
+    height:25px;
+    font-size: 14px;
+    /* font-weight: bold; */
+    font-family: Arial, Helvetica, sans-serif;
+    /* text-align: center; */
+    color:white;
+    top : 27px;
+    left:84%;
+}
+#textPosition{
+    margin:auto;
+}
+
+#positionX p{
+    padding-top: 4px;
+}
+
+#positionY p{
+    padding-top: 4px;
+}
+
+#positionZ p{
+    padding-top: 4px;
+}
+
+#positionX{
+    width : 70px;
+    height: 25px;
+    background-color: black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#positionY{
+    margin:auto;
+    width : 70px;
+    height: 25px;
+    background-color: black;
+    text-align: center;
+}
+
+#positionZ{
+    width : 70px;
+    height: 25px;
+     background-color: black;
+    text-align: center;
+    margin-right: 14px;
+}
+
+#meshrotation{
+    position: absolute;
+    display: flex;
+    background-color: #471916;
+    width:300px;
+    height:25px;
+    font-size: 14px;
+    /* font-weight: bold; */
+    font-family: Arial, Helvetica, sans-serif;
+    /* text-align: center; */
+    color:white;
+    top : 54px;
+    left:84%;
+}
+
+#textRotation{
+    margin:auto;
+}
+
+#rotationX p{
+    padding-top: 4px;
+}
+
+#rotationY p{
+    padding-top: 4px;
+}
+
+#rotationZ p{
+    padding-top: 4px;
+}
+
+#rotationX{
+    width : 70px;
+    height: 25px;
+    background-color: black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#rotationY{
+    margin:auto;
+    width : 70px;
+    height: 25px;
+    background-color: black;
+    text-align: center;
+}
+
+#rotationZ{
+    width : 70px;
+    height: 25px;
+     background-color: black;
+    text-align: center;
+    margin-right: 14px;
+}
+
+#meshscale {
+    position: absolute;
+    display: flex;
+    background-color: #471916;
+    width:300px;
+    height:25px;
+    font-size: 14px;
+    /* font-weight: bold; */
+    font-family: Arial, Helvetica, sans-serif;
+    /* text-align: center; */
+    color:white;
+    top : 81px;
+    left:84%;
+}
+
+#textScale{
+    margin:auto;
+}
+
+#scaleX p{
+    padding-top: 4px;
+}
+
+#scaleY p{
+    padding-top: 4px;
+}
+
+#scaleZ p{
+    padding-top: 4px;
+}
+
+#scaleX{
+    width : 70px;
+    height: 25px;
+    margin-left: 14px;
+    background-color: black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#scaleY{
+    margin:auto;
+    width : 70px;
+    height: 25px;
+    background-color: black;
+    text-align: center;
+}
+
+#scaleZ{
+    width : 70px;
+    height: 25px;
+     background-color: black;
+    text-align: center;
+    margin-right: 14px;
+}
+
+#deselect{
+    position: absolute;
+    background-color: #008769;
+    width:300px;
+    height:25px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color:white;
+    top : 108px;
+    left:84%;
+}
+
+#deselect p{
+    padding-top: 2px;
+}
+
+#saveSuccess{
+    position: absolute;
+    top : 20%;
+    left:45%;
+    width:100px;
+    height:38px;
+
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', sans-serif;
+    color:black;
+}
+
+#destroy{
+    display: none;
+    position: absolute;
+    background-color: #008769;
+    width:300px;
+    height:25px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color:white;
+    top : 162px;
+    left:84%;
+}
+
+#destroy p{
+    padding-top: 2px;
+}
+
+#barre{
+    position: absolute;
+    background-color: #471916;
+    width:300px;
+    height:25px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color:white;
+    top : 135px;
+    left:84%;
+}
