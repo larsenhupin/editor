@@ -50,7 +50,6 @@ function createScene(sceneName){
 		//entityManager.placeEntities(sceneManager.scene, sceneManager.scene.superman_view.cameras);
 		sceneManager.init();
 		fillIntersectables();
-		console.log(sceneManager.scene);
 		Run = 1;
 		render();
 	};
@@ -170,7 +169,6 @@ function scale(control){
 // Should be in input class --------------------------------------
 function move(direction){
 	const name = entityManager.objSelected;
-	console.log(name);
 	if(name == "PerspectiveCamera"){
 		if(direction == "rotateX"){
 			sceneManager.superman_view.rotateX();
@@ -267,7 +265,6 @@ function render(){
 
 function onDocumentKeyDown(event){
 	let keyCode = event.which;
-	console.log(keyCode);
 
 	if(focus == 0){
 		switch(keyCode){
