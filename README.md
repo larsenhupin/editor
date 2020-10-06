@@ -1,5 +1,5 @@
 # Introduction
-Final Project Cégep du Vieux Montréal Informatique 2020 <br/>
+Projet final Cégep du Vieux Montréal Informatique 2020 <br/>
 
 # Editor
 Game Editor prototype written in Javascript using [Three.js](https://github.com/mrdoob/three.js/) <br/><br/>
