@@ -1,5 +1,6 @@
 import * as THREE from '../libs/three.module.js';
-import {Editor_UI} from './UI_Editor.js';
+
+import {Editor} from './UI_Editor.js';
 import {SceneManager} from './SceneManager.js';
 import {SimplifiedSceneGraphe} from './SimplifiedSceneGraph.js';
 import {FileManager} from './FileManager.js';
@@ -13,18 +14,22 @@ const dimensions = {
 	height: canvas.height
 }
 
+// Variables ---------------------------
 let focus = 0;
 let instersectables = [];
+let models = [];
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
+// --------------------------------------
 
 const sceneGraph = new SimplifiedSceneGraphe();
 const sceneManager = new SceneManager(canvas, dimensions );
 const fileManager = new FileManager(sceneManager.scene);
 const entityManager = new EntityManager();
-const editor_UI = new Editor_UI(1);
+const editor = new Editor(1);
 
-// temporary ---------
+
+// temp/sert aux inputs
 let bool = 1;
 // -------------------
 
@@ -33,14 +38,19 @@ bindEventListener();
 // Default
 createScene("default");
 
+
 function createScene(sceneName){
+	
+
 	fileManager.getScenesFileNames();
+
+
 	fileManager.getSceneGraphData(sceneName);
 	sceneManager.initSceneBasic(fileManager.sceneData);
 
 	resizeCanvas();
-	editor_UI.create(sceneManager.scene);
-	editor_UI.clearMeshInfo(sceneManager.scene);
+	editor.create(sceneManager.scene);
+	editor.clearMeshInfo(sceneManager.scene);
 	entityManager.objSelected = sceneManager.superman_view.camera.name;
 
 	fileManager.loadModels(sceneManager.modelsData);
@@ -50,10 +60,68 @@ function createScene(sceneName){
 		//entityManager.placeEntities(sceneManager.scene, sceneManager.scene.superman_view.cameras);
 		sceneManager.init();
 		fillIntersectables();
+		console.log(sceneManager.scene);
 		Run = 1;
 		render();
 	};
 }
+
+
+/*function initDropAttributes(){
+	let dropZone = document.getElementById("drop_zone");
+	dropZone.setAttribute("ondrop","dropHandler(event)");
+	dropZone.setAttribute("ondragover","dragOverHandler;"); 
+}
+*/
+
+//ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+
+/*function dragOverHandler( event ){
+	console.log("Files in drop zone");
+	document.getElementById("drop_zone").style.backgroundColor = 'green';
+}
+*/
+
+window.dragOverHandler = function(event){
+	console.log("drag race");
+	let dropZone = document.getElementById("drop_zone");
+	dropZone.style.opacity = '0.5';
+	event.preventDefault();
+}
+
+window.dragLeaveHandler = function(event){
+	let dropZone = document.getElementById("drop_zone");
+	dropZone.style.opacity = '0';
+}
+
+window.dropHandler = function( event ){
+	console.log("Filedrop");
+	event.preventDefault();
+
+	let dropZone = document.getElementById("drop_zone");
+	dropZone.style.opacity = '0';
+
+	if(event.dataTransfer.items){ //Use DataTransferItemList interface to access the file
+		for(let i = 0; i < event.dataTransfer.items.length; i++){
+			//if dropped items aren't files, reject them
+			if(event.dataTransfer.items[i].kind === 'file'){
+				let file = event.dataTransfer.items[i].getAsFile();
+				//models.push(file);
+				
+				//console.log('... file[' + i + '].name = ' + file.name);
+			}
+		}
+	}
+
+	let fileobj = event.dataTransfer.files[0];
+	fileManager.ajax_file_upload(fileobj);
+	//for (var i = 0; i < models.length; i++) {
+		//console.log(models[i]);
+
+		//fileManager.loadDropModel(models[i]);
+	//}
+}
+
 
 function fillIntersectables(){
 	instersectables = [];
@@ -72,19 +140,20 @@ function click_mesh( event ) {
 	let intersects = raycaster.intersectObjects(instersectables, true );
 
 	if ( intersects.length > 0 ) {
-		// Hacky method
+		//drole de hack ici, il serait préférable de trouver un meilleure solution
 		if(intersects[ 0 ].object.parent.parent != undefined){
 			if(intersects[ 0 ].object.parent.parent.name == sceneManager.scene.name){
+				// Faire d'autres fonction lala
 				entityManager.objSelected = intersects[ 0 ].object.parent.name;
-				editor_UI.updateMeshInfo(sceneManager.scene, entityManager.objSelected);
+				editor.updateMeshInfo(sceneManager.scene, entityManager.objSelected);
 			}
 			else{
 				entityManager.objSelected = intersects[ 0 ].object.parent.parent.name;
-				editor_UI.updateMeshInfo(sceneManager.scene, entityManager.objSelected);
+				editor.updateMeshInfo(sceneManager.scene, entityManager.objSelected);
 			}
 
-			if(editor_UI.mode == 1)
-				editor_UI.showDestroy();
+			if(editor.mode == 1)
+				editor.showDestroy();
 		}
 	}
 }
@@ -92,8 +161,8 @@ function click_mesh( event ) {
 function leftScene(){
 	let nextSceneName = fileManager.getSceneLeft(sceneManager.scene.name);
 	loadScene(nextSceneName);
-}
 
+}
 function rightScene(){
 	let nextSceneName = fileManager.getSceneRight(sceneManager.scene.name);
 	loadScene(nextSceneName);
@@ -104,7 +173,7 @@ function loadScene(sceneName){
 	Run = 0;
 	render();
 	createScene(sceneName);
-	editor_UI.updateInputName(sceneName);
+	editor.updateInputName(sceneName);
 }
 
 function deleteScene(){
@@ -122,10 +191,10 @@ function saveScene(){
 	}
 	sceneManager.serializeSceneGraph(sceneGraph, textInputValue);
 	if(fileManager.saveToServer(textInputValue, sceneGraph.tree) != 0){
-		editor_UI.displaySaveSuccess(1);
+		editor.displaySaveSuccess(1);
 	}
 	else{
-		editor_UI.displaySaveSuccess(0);
+		editor.displaySaveSuccess(0);
 	}
 
 	fileManager.getScenesFileNames();
@@ -142,10 +211,11 @@ function inputBlur(){
 
 
 function deselectMesh(){
-	editor_UI.clearMeshInfo(sceneManager.scene);
+	editor.clearMeshInfo(sceneManager.scene);
 	entityManager.objSelected = "PerspectiveCamera";
-	editor_UI.hideDestroy();
+	editor.hideDestroy();
 }
+
 
 function scale(control){
 	const name = entityManager.objSelected;
@@ -163,12 +233,15 @@ function scale(control){
 		obj.scale.z -= 1;
 	}
 
-	editor_UI.updateMeshInfo(sceneManager.scene, name);
+	editor.updateMeshInfo(sceneManager.scene, name);
+
 }
 
-// Should be in input class --------------------------------------
+// ---------------------------------------------------------
+// Quoi faire avec cette monstruosité ?
 function move(direction){
 	const name = entityManager.objSelected;
+	console.log(name);
 	if(name == "PerspectiveCamera"){
 		if(direction == "rotateX"){
 			sceneManager.superman_view.rotateX();
@@ -207,7 +280,8 @@ function move(direction){
 		if(direction == "right"){
 			sceneManager.superman_view.moveRight();
 		}
-		editor_UI.clearMeshInfo(sceneManager.scene);
+		editor.clearMeshInfo(sceneManager.scene);
+
 	}
 	else{
 		const obj = sceneManager.scene.getObjectByName(name);
@@ -249,22 +323,30 @@ function move(direction){
 		if(direction == "right"){
 			obj.position.x += 1;
 		}
-		editor_UI.updateMeshInfo(sceneManager.scene, name);
+
+		editor.updateMeshInfo(sceneManager.scene, name);
 	}
+	//changer le nom de cette chose
 }
+
 // ---------------------------------------------------------
+
 
 function render(){
 	if (!Run) return;
 
+
+	// verify
 	setTimeout( function() {
 		requestAnimationFrame(render);
 	}, 1000 / 60);
 	sceneManager.update();
 }
 
+
 function onDocumentKeyDown(event){
 	let keyCode = event.which;
+	console.log(keyCode);
 
 	if(focus == 0){
 		switch(keyCode){
@@ -272,12 +354,12 @@ function onDocumentKeyDown(event){
 			if (Run == 1){
 					Run = 0;
 				}
-			else{
+				else{
 					Run = 1;
 					render();
 				}
 			break;
-			case 222: editor_UI.display(!editor_UI.mode, entityManager.objSelected); break;
+			case 222: editor.display(!editor.mode, entityManager.objSelected); break;
 			case 84: if(bool == 1){move("rotateX");} break;
 			case 71: if(bool == 1){move("rotateXReverse");} break;
 			case 82: if(bool == 1){move("rotateY");} break;
@@ -292,12 +374,14 @@ function onDocumentKeyDown(event){
 			case 65: if(bool == 1){move("left");} break;
 			case 90: if(bool == 1){scale("smaller");} break;
 			case 88: if(bool == 1){scale("bigger");} break;
+			//case 37: bool = 1;break;
 		}
 	}
 }
 
 function bindEventListener(){
 	document.getElementById('deselect').addEventListener('click', deselectMesh);
+
 	document.getElementById('scenenameinput').addEventListener('focus', inputFocus);
 	document.getElementById('scenenameinput').addEventListener('blur', inputBlur);
 	document.addEventListener('keydown', onDocumentKeyDown, false);

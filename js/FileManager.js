@@ -10,6 +10,7 @@ export class FileManager {
 		this.scenesFilename = [];
 		this.sceneData = [];
 		this.modelsData = [];
+		//this.listOfModels = [];
 	}
 
 	onLoad = ( gltf, key) => {
@@ -20,7 +21,7 @@ export class FileManager {
 
 	onProgress = (xhr) => { if(xhr.loaded / xhr.total * 100 == 100){ return true } };
 
-	onError = ( errorMessage ) => { console.log( errorMessage ); };
+	onError = ( errorMessage ) => { console.log( errorMessage ) };
 
 	getSceneLeft(sceneName){
 		console.log(this.scenesFilename);
@@ -134,6 +135,9 @@ export class FileManager {
 			})
 	}
 
+
+	// -------------------------------------------------------------------------------------
+
 	loadModels(modelsData){
 		let model_url;
 		let ext = ".glb";
@@ -144,11 +148,43 @@ export class FileManager {
 		}
 	}
 
+	loadDropModel(model){
+		//console.log(model);
+		this.gltfLoader.load( "./server/"+model, gltf => this.onLoad( gltf, model ), this.onProgress, this.onError );
+		//this.gltfLoader.load( model, gltf => this.onLoad( gltf, model.name ), this.onProgress, this.onError );
+		//this.gltfLoader.load("./"+model.name, gltf => this.onLoad( gltf, model.name ), this.onProgress, this.onError );
+
+	}
+
+
+
 	loadGLFT(data){
 		let url;
 		for (let key in data){
 			url = "./assets/"+ data[key];
 			this.gltfLoader.load( url, gltf => this.onLoad( gltf, key ), this.onProgress, this.onError );
+		}
+	}
+
+	ajax_file_upload(file_obj){
+		if(file_obj != undefined){
+			let form_data = new FormData();
+			form_data.append('file', file_obj);
+			$.ajax({
+				type: 'POST',
+				url: 'server/ajax.php',
+				contentType: false,
+				processData: false,
+				data: form_data,
+			}).done(response => {
+				this.loadDropModel(response);
+			})
+				//success:function(response){
+					
+					//console.log(response);
+					// load model
+					//this.loadDropModel(response);
+
 		}
 	}
 }

@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="favicon-16x16.png">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Synthese</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/Controlleur.js" type="module"></script>
     <script src="libs/jquery.min.js"></script>
+    <script type="module" src="js/Controlleur.js"></script>
+
 </head>
 <body>
+
+    <div id="drop_zone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" ondragleave="dragLeaveHandler(event)">
+    </div>
 
     <div id="sceneDisplay">
         <div id="buttonSceneLeft"><img></div>

@@ -3,10 +3,14 @@ import * as THREE from '../libs/three.module.js';
 export class Camera{
   constructor (scene, width, height){
     this.aspectRatio = width / height;
+    // Faire un tableau avec plusieurs caméra
     this.camera;
     this.cameras = [];
+
   }
-  
+
+
+
 	update(time){
 	}
 

@@ -1,4 +1,4 @@
-export class Editor_UI {
+export class Editor {
 	constructor(mode=0){
 		this.mode=mode;
 	}
@@ -20,6 +20,7 @@ export class Editor_UI {
 		setTimeout(function(){
 			elem.style.display = "none";
 		}, 2000);
+
 	}
 
 	showDestroy(){
@@ -61,6 +62,7 @@ export class Editor_UI {
 		document.getElementById("textScaleZ").textContent = meshScaleZ.toFixed(2);
 	}
 
+	// appeller la fonction showcamerainfo kekchose
 	clearMeshInfo(scene){
 		this.hideDestroy();
 		let name = "PerspectiveCamera";
@@ -79,7 +81,12 @@ export class Editor_UI {
 	}
 
 	display(mode, objSelected){
+
+		//faire une boucle kekchose quand on va ajouter du UI
+
 		if(mode){
+
+
 			document.getElementById("sceneDisplay").style.display="flex";
 			document.getElementById("save").style.display="block";
 			document.getElementById("delete").style.display="block";
@@ -96,6 +103,7 @@ export class Editor_UI {
 			this.mode = 1;
 		}
 		else{
+
 			document.getElementById("sceneDisplay").style.display="none";
 			document.getElementById("save").style.display="none";
 			document.getElementById("delete").style.display="none";

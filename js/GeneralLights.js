@@ -13,6 +13,7 @@ export class GeneralLights{
 		this.pointLight = new THREE.PointLight(c, 1);
 		scene.add(this.pointLight);
 		this.pointLight.position.set(lightData.position.x, lightData.position.y, lightData.position.z);
+		//set rotation
 	}
 
 
@@ -24,5 +25,8 @@ export class GeneralLights{
 	}
 
 	update = function(time){
+		//light.position.x +=0.01;
+
+
 	}
 }

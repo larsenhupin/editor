@@ -4,6 +4,19 @@
 
 html, #home body { width:100%; height:100%;} /* just to be sure these are full screen*/
 
+#drop_zone {
+  position:absolute;
+  display: flex;
+  width:  100%;
+  height: 100%;
+
+  background-color: gray;
+  opacity: 0;
+
+
+}
+
+
 /* unvisited link */
 a:link {
     color: black;

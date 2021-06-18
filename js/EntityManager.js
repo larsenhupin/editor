@@ -15,7 +15,7 @@ export class EntityManager {
 			x = modelsData[i].position.x;
 			y = modelsData[i].position.y;
 			z = modelsData[i].position.z;
-			scale = modelsData[i].scale.x; // need x, y, z
+			scale = modelsData[i].scale.x; // ajouter x, y, z
 			eulerRotation = new THREE.Euler( 	modelsData[i].rotation._x,
 										modelsData[i].rotation._y,
 										modelsData[i].rotation._z,

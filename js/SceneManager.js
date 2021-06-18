@@ -11,20 +11,24 @@ export class SceneManager{
 		this.clock = new THREE.Clock();
 		this.scene = this.buildScene();
 
+		// (TODO): arreter de passer scene en parametre c'est pas une bonne pratique
 		this.superman_view = new Camera(this.scene, this.dimensions.width, this.dimensions.height);
 		this.generalLights = new GeneralLights(this.scene);
+		//this.terrain = new Terrain(this.scene);
+		// --------------------------------------------------------------------------
 
 		this.renderer = this.buildRender(this.dimensions);
 		this.sceneEntities;
 
-		// temporary
+		//temporaire
 		this.myBool=0;
 		this.it=0.01;
-		// ----------
- 
+		//----------
+
 		this.modelsData = [];
 	}
 
+	// Its deserialize scene graph
 	serializeSceneGraph(sceneGraph, textInputValue){
 		sceneGraph.emptySceneTree();
 		const sceneInfo = sceneGraph.instantiateScene(
@@ -77,6 +81,7 @@ export class SceneManager{
 			}
 			if(sceneData[i].type == "PerspectiveCamera"){
 				this.superman_view.buildCamera(this.scene, sceneData[i]);
+				//make camera class so we can have multiple cameras
 			}
 			if(sceneData[i].type == "PointLight"){
 				this.generalLights.addPointLight(this.scene, sceneData[i]);
@@ -126,16 +131,21 @@ export class SceneManager{
 	}
 
 	buildRender({width, height}){
+		//const DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;
 			const renderer = new THREE.WebGLRenderer({canvas: canvas,
 													antialias: true,
 													alpha: true});
 
+			// Les texures en glTF utilise toujours un encodage sRGB
 			renderer.outputEncoding = THREE.sRGBEncoding;
+			//Sert à prévenir les écrans HiDPI de brouiller l'output du canvas
+			//renderer.setPixelRatio(DPR);
 			renderer.setSize(width, height);
 
 			return renderer;
 	}
 
+	// util -----------------------------
 	onWindowResize(){
 		const { width, height } = canvas;
 
